@@ -39,6 +39,10 @@ class Controller:
                 self.durata = None
             else:
                 self.durata = int(e.control.value)
+                if self.durata < 0:
+                    self.durata = None
+                    self._view.durata_massima.error = "La durata non può essere negativa"
+                    self._view.show_alert("Inserire un numero di giorni non negativo!")
         except Exception:
             self.durata = None
             self._view.durata_massima.error = "Giorni non Validi"
@@ -53,6 +57,10 @@ class Controller:
             else:
                 e.control.value = e.control.value.replace(".", "")
                 self.costo = float(e.control.value.replace(",", "."))
+                if self.costo < 0:
+                    self.costo = None
+                    self._view.budget_massimo.error = "Il budget non può essere negativo"
+                    self._view.show_alert("Inserire un budget non negativo!")
                 print(self.costo)
         except Exception:
             self.costo = None
